@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import Footer from "./footer";
 // TODO Fix the mobile view. It is not great at all.
 interface SidebarProps {
@@ -62,15 +63,15 @@ const Sidebar: React.FC<SidebarProps> = ({ color }) => {
       >
         <ul className="relative mt-10 max-w-max lg:mt-20 text-l md:text-xl lg:text-2xl">
           <div className="relative group max-w-max lg:mt-24 mt-16 duration-300 hover:-translate-y-1">
-            <a href="/">Home</a>
+            <Link href="/">Home</Link>
             {underline}
           </div>
           <div className="relative group max-w-max lg:mt-10 mt-4 duration-300 hover:-translate-y-1">
-            <a href="/team">Meet the Team</a>
+            <Link href="/team">Meet the Team</Link>
             {underline}
           </div>
           <div className="relative group max-w-max lg:mt-10 mt-4 duration-300 hover:-translate-y-1">
-            <a href="/gallery">Photo Gallery</a>
+            <Link href="/gallery">Photo Gallery</Link>
             {underline}
           </div>
           <div className="relative group max-w-max lg:mt-10 mt-4 duration-300 hover:-translate-y-1">

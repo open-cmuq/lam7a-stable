@@ -2,6 +2,7 @@
   "name": "nextjs",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "npm@11.5.1",
   "engines": {
     "node": "20.x"
   },
@@ -12,32 +13,22 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@react-pdf-viewer/core": "^3.12.0",
-    "@react-pdf-viewer/default-layout": "^3.12.0",
-    "@vercel/analytics": "^1.1.1",
-    "@vercel/postgres": "^0.10.0",
-    "formidable": "^3.5.2",
     "next": "13.5.6",
     "pdfjs-dist": "^3.11.174",
     "react": "^18",
     "react-dom": "^18",
     "react-grid-gallery": "^1.0.1-alpha.0",
     "react-multi-carousel": "^2.8.4",
-    "react-toastify": "^11.0.2",
-    "ssh2-sftp-client": "^11.0.0",
-    "utf-8-validate": "^6.0.5",
     "yet-another-react-lightbox": "^3.14.0"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@types/ssh2-sftp-client": "^9.0.4",
     "autoprefixer": "^10",
     "eslint": "^8",
     "eslint-config-next": "13.5.6",
     "postcss": "^8",
-    "raw-loader": "^4.0.2",
     "tailwindcss": "^3",
     "typescript": "^5"
   }

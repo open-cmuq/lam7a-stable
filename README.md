@@ -1,39 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Lam7a Static Site
 
-## Getting Started
+This repo hosts the Lam7a magazine website as a static Next.js export for GitHub Pages.
 
-First, run the development server:
+## Local Development
+
+Use Node 20:
 
 ```bash
+nvm use
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production Build
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Build the static output:
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+Generated files are written to `out/`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy to GitHub Pages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Deployment is handled by the GitHub Actions workflow at `.github/workflows/deploy-pages.yml`.
 
-## Deploy on Vercel
+1. In GitHub, open repository settings.
+2. Under **Pages**, set source to **GitHub Actions**.
+3. Push to `main` to trigger deployment.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Content Updates
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This site is fully file-driven. Update these files and redeploy:
 
-Let's test this thing :)
+- Magazine issues: `data/sliderItems.tsx`
+- Team members: `data/team.ts`
+- Gallery images: `data/images.ts`
+- Static assets: `public/`
+
+## Notes
+
+- The app uses `output: "export"` in `next.config.js`, so no server runtime is required.
+- Internal navigation is built to work correctly under GitHub Pages repo paths.
 

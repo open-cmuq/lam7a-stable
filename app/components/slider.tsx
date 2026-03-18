@@ -2,6 +2,7 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Image from "next/image";
+import Link from "next/link";
 import { Journal } from "../lib/definitions";
 import { extractId } from "../lib/util";
 
@@ -34,7 +35,7 @@ interface SliderProps {
 
 const Slider = ({ sliderItems }: SliderProps) => {
   // sort them from latest to oldest (descending)
-  const slides = sliderItems.sort((a, b) => extractId(b) - extractId(a));
+  const slides = [...sliderItems].sort((a, b) => extractId(b) - extractId(a));
 
   return (
     <div className="parent">
@@ -51,12 +52,14 @@ const Slider = ({ sliderItems }: SliderProps) => {
         dotListClass="custom-dot-list-style hidden"
       >
         {slides.map((item, index) => {
+          const pdfName = item.pdfurl.split("/").pop();
           return (
             <div className="slider m-3 mr-6 px-4 py-6" key={index}>
-              <a
+              <Link
                 className="pt-2 cursor-pointer"
-                href={item.pdfurl}
-                target="_blank"
+                href={pdfName ? `/magazine/${pdfName}` : item.pdfurl}
+                target={pdfName ? undefined : "_blank"}
+                rel={pdfName ? undefined : "noreferrer"}
               >
                 <Image
                   className="lg:hover:scale-[1.30] hover:scale-[1.2] duration-300 slider-image hover:z-50 hover:shadow-none"
@@ -66,7 +69,7 @@ const Slider = ({ sliderItems }: SliderProps) => {
                   height={700}
                   priority
                 />
-              </a>
+              </Link>
             </div>
           );
         })}

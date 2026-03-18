@@ -1,17 +1,25 @@
 /** @type {import('next').NextConfig} */
+const isGithubActions = process.env.GITHUB_ACTIONS === "true";
+const repoName = process.env.GITHUB_REPOSITORY?.split("/")[1] ?? "";
+const basePath = isGithubActions && repoName ? `/${repoName}` : "";
+
 const nextConfig = {
+  output: "export",
+  trailingSlash: true,
+  basePath,
+  assetPrefix: basePath,
   images: {
-    domains: ["web2.qatar.cmu.edu"],
-  },
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    if (isServer) {
-      config.externals.push({
-        ssh2: "commonjs ssh2",
-      });
-    }
-    config.resolve.alias.canvas = false;
-    config.resolve.alias.encoding = false;
-    return config;
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "web2.qatar.cmu.edu",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+    ],
   },
 };
 module.exports = nextConfig;

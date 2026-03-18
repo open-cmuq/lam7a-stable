@@ -5,20 +5,16 @@ import Footer from "./components/footer_new";
 import SplitScreenComponent from "./components/SplitScreenComponent";
 import Gallery from "./components/Gallery";
 import FullWidthImage from "./components/FullWidthImage";
-import { fetchJournals } from "./lib/data";
-import { findMaxId, ordinal } from "./lib/util";
-import { sliderItems as fallbackSliderItems } from "@/data/sliderItems";
+import { extractId, findMaxId, ordinal } from "./lib/util";
+import Link from "next/link";
+import { sliderItems } from "@/data/sliderItems";
 
-export const revalidate = 0;
-
-export default async function Page() {
-  let sliderItems = fallbackSliderItems;
-  try {
-    sliderItems = await fetchJournals();
-  } catch (error) {
-    console.error("Failed to fetch journals on home page:", error);
-  }
+export default function Page() {
   const maxId = findMaxId(sliderItems);
+  const latestIssue = [...sliderItems].sort((a, b) => extractId(a) - extractId(b)).pop();
+  const latestIssuePdfName = latestIssue
+    ? latestIssue.pdfurl.split("/").pop() || "issue12.pdf"
+    : "issue12.pdf";
   // this is a magic one liner (chatgpt :-) to convert issue number to 1st / 2nd / 35th / etc ordinal
 
   return (
@@ -31,12 +27,12 @@ export default async function Page() {
         imageSrc="/assets/bg-wrapped.png"
       >
         <button className="bg-[#ECE5DD] p-4 font-bold">
-          <a
+          <Link
             className="text-[#B22F04] text-sm md:text-xl  break-normal"
-            href="/magazine/issue12.pdf"
+            href={`/magazine/${latestIssuePdfName}`}
           >
             Check It Online Now
-          </a>
+          </Link>
         </button>
       </SplitScreenComponent>
       <div className="flex flex-col h-max py-1 px-5 lg:pb-3.5 pt-8 lg:pt-8 lg:px-20 bg-customOrange">

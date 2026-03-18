@@ -46,7 +46,7 @@ const Card: React.FC<CardProps> = ({
         <Image
           className="min-h-[55vh] border-customYellow border-4 rounded-[10%] mt-4 md:min-h-[45vh] lg:min-h-[65vh] dark:drop-shadow-[0_0_0.3rem_#ffffff70] mb-4"
           src={imageUrl}
-          objectFit="cover"
+          style={{ objectFit: "cover" }}
           alt={name}
           width={948}
           height={380}

@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 // A tiny helper component to replicate the old responsive + objectFit behavior
 function GalleryImage({
@@ -74,12 +75,12 @@ const Gallery = () => {
             <h2 className="text-xl md:text-4xl xl:text-6xl font-bold my-2 text-white">
               PHOTO GALLERY
             </h2>
-            <a
+            <Link
               href="/gallery"
               className="block text-black w-full mb-5 text-center bg-[#ECE5DD] p-4 font-bold uppercase"
             >
               DISCOVER MORE
-            </a>
+            </Link>
           </div>
         </div>
 

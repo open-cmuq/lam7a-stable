@@ -4,7 +4,7 @@ export interface CustomImage extends Image {
   original: string;
 }
 
-export const images: CustomImage[] = [
+const rawImages: CustomImage[] = [
   {
     src: "/pics/img139.jpg",
     original: "/pics/img139.jpg",
@@ -234,3 +234,9 @@ export const images: CustomImage[] = [
   //   "caption": "image 26"
   // }
 ];
+
+export const images: CustomImage[] = rawImages.map((img) => ({
+  ...img,
+  src: img.src.replace(/^http:\/\//, "https://"),
+  original: img.original.replace(/^http:\/\//, "https://"),
+}));
