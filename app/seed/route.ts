@@ -1,6 +1,9 @@
 import { db } from "@vercel/postgres";
 import { sliderItems } from "@/data/sliderItems";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function GET() {
   const client = await db.connect();
 
