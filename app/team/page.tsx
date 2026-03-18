@@ -1,4 +1,3 @@
-import RootLayout from "../layout";
 import Header from "../components/header";
 import Sidebar from "../components/sidebar";
 import Card from "./card";
@@ -9,7 +8,7 @@ import Footer from "../components/footer_new";
 
 export default function Page() {
   return (
-    <RootLayout>
+    <>
       <div className="relative">
         <Sidebar />
         <Header />
@@ -34,6 +33,6 @@ export default function Page() {
       <Gallery />
       <FullWidthImage src="/assets/bg3.webp" />
       <Footer />
-    </RootLayout>
+    </>
   );
 }
