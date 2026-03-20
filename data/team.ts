@@ -62,7 +62,7 @@ export const teamMembers = [
       "",
   },
   {
-    name: "Habiba",
+    name: "Habiba Almosallam",
     position: "Writer/Editor",
     classYear: "2028",
     description:
