@@ -19,8 +19,11 @@
     "react-dom": "^18",
     "react-grid-gallery": "^1.0.1-alpha.0",
     "react-multi-carousel": "^2.8.4",
+    "react-pageflip": "^2.0.3",
+    "react-pdf": "^5.5.1",
     "yet-another-react-lightbox": "^3.14.0"
   },
+  
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",

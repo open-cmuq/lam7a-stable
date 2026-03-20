@@ -3,4 +3,6 @@ export type Journal = {
   pdfurl: string;
   name: string;
   month: string;
+  pageCount: number;
+  year: number;
 };

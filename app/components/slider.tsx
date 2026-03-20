@@ -52,7 +52,8 @@ const Slider = ({ sliderItems }: SliderProps) => {
         dotListClass="custom-dot-list-style hidden"
       >
         {slides.map((item, index) => {
-          const pdfName = item.pdfurl.split("/").pop();
+          // const pdfName = item.pdfurl.split("/").pop();
+          const pdfName = item.pdfurl.split("/").pop()?.replace(".pdf", "");
           return (
             <div className="slider m-3 mr-6 px-4 py-6" key={index}>
               <Link
