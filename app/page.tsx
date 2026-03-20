@@ -13,8 +13,8 @@ export default function Page() {
   const maxId = findMaxId(sliderItems);
   const latestIssue = [...sliderItems].sort((a, b) => extractId(a) - extractId(b)).pop();
   const latestIssuePdfName = latestIssue
-    ? latestIssue.pdfurl.split("/").pop() || "issue12.pdf"
-    : "issue12.pdf";
+  ? latestIssue.pdfurl.split("/").pop()?.replace(".pdf", "") || "issue20"
+  : "issue20";
   // this is a magic one liner (chatgpt :-) to convert issue number to 1st / 2nd / 35th / etc ordinal
 
   return (
