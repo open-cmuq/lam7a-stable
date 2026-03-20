@@ -1,46 +1,85 @@
 export const teamMembers = [
   {
-    name: "Thuc Ngo",
-    imageURL: "/assets/team/thuc.webp",
+    name: "Zeina Halawa",
+    imageURL: "/assets/team/zeina7.JPG",
     position: "Editor in Chief",
-    classYear: "2024",
+    classYear: "2026",
     description:
-      "I love talking to people of CMU-Q and bringing in unique perspectives on Culture, Identity & Society, Politics on the magazine",
+      "I love sharing the ideas and perspectives of the community, as well as exploring different creative writing styles and formats",
   },
   {
-    name: "Mariam Hamad",
-    imageURL: "/assets/team/mary.jpeg",
-    position: "Editor in Chief",
-    classYear: "2024",
+    name: "Marwa Zaidi",
+    position: "Operations Manager",
+    classYear: "2028",
     description:
-      "Hello, I handle the logistics that bring your favorite monthly magazine to life. From production to delivery, I make sure it reaches you smoothly.",
+      "",
   },
   {
-    name: "Hala Al Darbasti",
-    imageURL: "/assets/team/hala.jpg",
-    position: "Creative Director",
-    classYear: "2024",
-    description: "Hi! I work on the design and layout of the magazine",
+    name: "Raneem Mujalli",
+    position: "Designer",
+    classYear: "2027",
+    description: "",
   },
   {
-    name: "Maryam Al Ghanim",
-    position: "Operations Chief",
-    classYear: "2024",
+    name: "Yasmina Kalash",
+    position: "Designer",
+    classYear: "2027",
     description:
-      "I ensure every launch of Lamha is the most memorable & engaging",
+      "",
   },
   {
-    name: "Dana Aldisi",
+    name: "Dania Elsharkawi",
+    position: "Designer",
+    classYear: "2027",
+    description: "",
+  },
+  {
+    name: "Laiba Sameer",
     position: "Writer/Editor",
-    classYear: "2025",
+    classYear: "2027",
     description:
-      "I'm a writer and editor of Lamha for Spring 2023. I look forward to contributing more this year!",
+      "",
   },
   {
-    name: "Dema Al Shirawi",
+    name: "Mekal Tbaa",
+    position: "Writer/Editor",
+    classYear: "2027",
+    description:
+      "",
+  },
+  {
+    name: "Nada El-Mestkawy",
+    position: "Writer/Editor",
+    classYear: "2027",
+    description:
+      "",
+  },
+  {
+    name: "Ahmed Pathan",
     position: "Writer/Editor",
     classYear: "2026",
     description:
-      "Heyy! I love reading and writing and I'm in charge of editing and writing some of the amazing content in the magazine",
+      "",
+  },
+  {
+    name: "Habiba",
+    position: "Writer/Editor",
+    classYear: "2028",
+    description:
+      "",
+  },
+    {
+    name: "Reem Kensouh",
+    position: "Marketing Director",
+    classYear: "2026",
+    description:
+      "",
+  },
+  {
+    name: "Elana",
+    position: "Marketing Director",
+    classYear: "2028",
+    description:
+      "",
   },
 ];
