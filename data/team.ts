@@ -1,7 +1,7 @@
 export const teamMembers = [
   {
     name: "Zeina Halawa",
-    imageURL: "/assets/team/zeina5.JPG",
+    imageURL: "/assets/team/zeina.JPG",
     position: "Editor in Chief",
     classYear: "2026",
     description:
@@ -76,7 +76,7 @@ export const teamMembers = [
       "",
   },
   {
-    name: "Elana",
+    name: "Elana Firdaus",
     position: "Marketing Director",
     classYear: "2028",
     description:
