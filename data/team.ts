@@ -1,7 +1,7 @@
 export const teamMembers = [
   {
     name: "Zeina Halawa",
-    imageURL: "/assets/team/zeina7.JPG",
+    imageURL: "/assets/team/zeina5.JPG",
     position: "Editor in Chief",
     classYear: "2026",
     description:
