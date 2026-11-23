@@ -1,37 +1,25 @@
-"use client";
-import { useState } from "react";
-import { Gallery } from "react-grid-gallery";
-import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
-import { images, CustomImage } from "@/data/images";
-import Sidebar from "../components/sidebar";
+import type { Metadata } from "next";
+import SiteHeader from "../components/SiteHeader";
+import SiteFooter from "../components/SiteFooter";
+import PhotoWall from "../components/PhotoWall";
 
-const slides = images.map(({ original, width, height }) => ({
-  src: original,
-  width,
-  height,
-}));
+export const metadata: Metadata = {
+  title: "Photos",
+  description: "Photos from Lam7a launches and around the CMU-Q campus.",
+};
 
-export default function App() {
-  const [index, setIndex] = useState(-1);
-
-  const handleClick = (index: number, item: CustomImage) => setIndex(index);
-
+export default function Page() {
   return (
-    <div>
-      <Sidebar />
-      <Gallery
-        images={images}
-        onClick={handleClick}
-        rowHeight={400}
-        enableImageSelection={false}
-      />
-      <Lightbox
-        slides={slides}
-        open={index >= 0}
-        index={index}
-        close={() => setIndex(-1)}
-      />
-    </div>
+    <>
+      <SiteHeader />
+      <main className="wrap gallery">
+        <h1 className="page-title">Photos</h1>
+        <p className="block__lede">
+          From launches and around campus. Pick a photo to see it larger.
+        </p>
+        <PhotoWall />
+      </main>
+      <SiteFooter />
+    </>
   );
 }

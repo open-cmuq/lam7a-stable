@@ -8,6 +8,11 @@ const nextConfig = {
   trailingSlash: true,
   basePath,
   assetPrefix: basePath,
+  // Plain <img> tags and CSS urls don't get the base path added for them,
+  // so app/lib/util.ts reads it from here.
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
   images: {
     unoptimized: true,
     remotePatterns: [

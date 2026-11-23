@@ -1,130 +1,157 @@
-// "use client";
-// import { useRef } from "react";
-// import HTMLFlipBook from "react-pageflip";
-
-// interface Props {
-//   issueSlug: string; // e.g. "issue20"
-//   pageCount: number;
-// }
-
-// export default function FlipViewer({ issueSlug, pageCount }: Props) {
-//   const bookRef = useRef<any>(null);
-//   const pages = Array.from({ length: pageCount }, (_, i) =>
-//     `/magazine-pages/${issueSlug}/page-${String(i + 1).padStart(2, "0")}.jpg`
-//   );
-
-//   return (
-//     <div className="flex flex-col items-center gap-6">
-//       {/* @ts-ignore */}
-//       <HTMLFlipBook
-//         ref={bookRef}
-//         width={420}
-//         height={590}
-//         size="fixed"
-//         showCover={true}
-//         className="shadow-2xl"
-//         flippingTime={700}
-//         usePortrait={false}
-//       >
-//         {pages.map((src, i) => (
-//           <div key={i} className="w-full h-full bg-white overflow-hidden">
-//             <img src={src} alt={`Page ${i + 1}`} className="w-full h-full object-contain" />
-//           </div>
-//         ))}
-//       </HTMLFlipBook>
-
-//       <div className="flex gap-4">
-//         <button
-//           onClick={() => bookRef.current?.pageFlip().flipPrev()}
-//           className="rounded-md bg-[#B22F04] px-6 py-2 font-semibold text-white hover:opacity-90"
-//         >
-//           ← Prev
-//         </button>
-//         <button
-//           onClick={() => bookRef.current?.pageFlip().flipNext()}
-//           className="rounded-md bg-[#B22F04] px-6 py-2 font-semibold text-white hover:opacity-90"
-//         >
-//           Next →
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
-
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import HTMLFlipBook from "react-pageflip";
+import { asset } from "../lib/util";
 
 interface Props {
   issueSlug: string;
   pageCount: number;
+  title: string;
 }
 
-function useWindowSize() {
-  const [size, setSize] = useState({ width: 800, height: 600 });
+const PAGE_RATIO = 1.414; // A4, height / width
+
+const pageSrc = (issueSlug: string, page: number) =>
+  asset(
+    `/magazine-pages/${issueSlug}/page-${String(page).padStart(2, "0")}.jpg`
+  );
+
+/** Works out a page size that fits the window: two pages side by side when there is room, one when there isn't. */
+function useBookSize() {
+  const [size, setSize] = useState<{
+    width: number;
+    height: number;
+    single: boolean;
+  } | null>(null);
+
   useEffect(() => {
-    const update = () => setSize({ width: window.innerWidth, height: window.innerHeight });
+    const update = () => {
+      const availableWidth = Math.min(window.innerWidth - 32, 1180);
+      // leave room for the header, the issue title and the page buttons
+      const availableHeight = Math.max(window.innerHeight - 310, 360);
+      const single = availableWidth < 720;
+      const widthFromHeight = availableHeight / PAGE_RATIO;
+      const widthFromWidth = single ? availableWidth : availableWidth / 2;
+      const width = Math.floor(Math.min(widthFromHeight, widthFromWidth, 620));
+      setSize((previous) =>
+        previous && previous.width === width && previous.single === single
+          ? previous
+          : { width, height: Math.round(width * PAGE_RATIO), single }
+      );
+    };
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
+
   return size;
 }
 
-export default function FlipViewer({ issueSlug, pageCount }: Props) {
+export default function FlipViewer({ issueSlug, pageCount, title }: Props) {
   const bookRef = useRef<any>(null);
-  const { width, height } = useWindowSize();
+  const size = useBookSize();
+  const [page, setPage] = useState(0); // index of the left-most page showing
 
-  const isMobile = width < 768;
+  const prev = useCallback(() => bookRef.current?.pageFlip()?.flipPrev(), []);
+  const next = useCallback(() => bookRef.current?.pageFlip()?.flipNext(), []);
 
-  // On mobile: single page, full width. On desktop: two pages side by side.
-  const bookWidth = isMobile ? Math.min(width - 32, 400) : 420;
-  const bookHeight = Math.round(bookWidth * 1.41); // A4 ratio
+  // Arrow keys turn the page.
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "ArrowLeft") prev();
+      if (event.key === "ArrowRight") next();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [prev, next]);
 
-  const pages = Array.from({ length: pageCount }, (_, i) =>
-    `/magazine-pages/${issueSlug}/page-${String(i + 1).padStart(2, "0")}.jpg`
-  );
+  // Fetch the next few pages ahead of time so a turn never lands on a blank.
+  useEffect(() => {
+    for (let ahead = 1; ahead <= 4; ahead++) {
+      const upcoming = page + 1 + ahead;
+      if (upcoming <= pageCount) new Image().src = pageSrc(issueSlug, upcoming);
+    }
+  }, [page, pageCount, issueSlug]);
+
+  const pages = Array.from({ length: pageCount }, (_, i) => i + 1);
+
+  // Which pages are on show, in words.
+  let showing = `Page ${page + 1}`;
+  if (size && !size.single && page > 0 && page + 2 <= pageCount) {
+    showing = `Pages ${page + 1} and ${page + 2}`;
+  }
+  const atStart = page === 0;
+  const atEnd = size?.single ? page >= pageCount - 1 : page + 2 >= pageCount;
 
   return (
-    <div className="flex flex-col items-center gap-4 w-full">
-      {/* @ts-ignore */}
-      <HTMLFlipBook
-        ref={bookRef}
-        width={bookWidth}
-        height={bookHeight}
-        size="fixed"
-        showCover={true}
-        className="shadow-2xl"
-        flippingTime={500}
-        usePortrait={isMobile}  // single page on mobile
-        mobileScrollSupport={true}
-        swipeDistance={30}
+    <div className="reader">
+      <div
+        className="reader__stage"
+        style={size ? { minHeight: size.height } : undefined}
       >
-        {pages.map((src, i) => (
-          <div key={i} className="w-full h-full bg-white overflow-hidden">
-            <img
-              src={src}
-              alt={`Page ${i + 1}`}
-              className="w-full h-full object-contain"
-            />
-          </div>
-        ))}
-      </HTMLFlipBook>
+        {size ? (
+          // @ts-ignore react-pageflip's types ask for every optional prop
+          <HTMLFlipBook
+            key={`${size.width}-${size.single}`}
+            ref={bookRef}
+            width={size.width}
+            height={size.height}
+            size="fixed"
+            showCover={true}
+            startPage={page}
+            className="reader__book"
+            flippingTime={550}
+            usePortrait={size.single}
+            mobileScrollSupport={true}
+            swipeDistance={30}
+            maxShadowOpacity={0.35}
+            onFlip={(event: { data: number }) => setPage(event.data)}
+          >
+            {pages.map((number) => (
+              <div key={number} className="reader__page">
+                <img
+                  src={pageSrc(issueSlug, number)}
+                  alt={`${title}, page ${number}`}
+                  loading={number <= 4 ? "eager" : "lazy"}
+                  decoding="async"
+                  draggable={false}
+                />
+              </div>
+            ))}
+          </HTMLFlipBook>
+        ) : (
+          <img
+            className="reader__placeholder"
+            src={pageSrc(issueSlug, 1)}
+            alt={`${title}, page 1`}
+          />
+        )}
+      </div>
 
-      <div className="flex gap-4">
+      <div className="reader__controls">
         <button
-          onClick={() => bookRef.current?.pageFlip().flipPrev()}
-          className="rounded-md bg-[#B22F04] px-6 py-2 font-semibold text-white hover:opacity-90"
+          type="button"
+          className="btn btn--quiet"
+          onClick={prev}
+          disabled={atStart}
         >
-          ← Prev
+          Previous
         </button>
+        <p className="reader__count" aria-live="polite">
+          {showing} <span>of {pageCount}</span>
+        </p>
         <button
-          onClick={() => bookRef.current?.pageFlip().flipNext()}
-          className="rounded-md bg-[#B22F04] px-6 py-2 font-semibold text-white hover:opacity-90"
+          type="button"
+          className="btn"
+          onClick={next}
+          disabled={atEnd}
         >
-          Next →
+          Next
         </button>
       </div>
+      <p className="reader__hint hand">
+        drag a corner, swipe, or use the arrow keys
+      </p>
     </div>
   );
 }
