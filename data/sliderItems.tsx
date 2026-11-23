@@ -4,46 +4,90 @@ import { Journal } from "@/app/lib/definitions";
 const BASE_IMAGE_URL = "/journals/";
 const BASE_PDF_URL = "/assets/magazines/";
 
+// To add an issue:
+//  1. put the cover in public/journals/ and the page images in
+//     public/magazine-pages/issueN/ (see scripts/generate-pages.sh)
+//  2. add an entry below. `theme`, `ink` and `wash` are optional:
+//     theme = the title on the cover, ink = a strong colour from the cover,
+//     wash = a pale colour from the cover. Leave them out and the site
+//     falls back to its default colours.
+// The newest issue automatically becomes the one featured on the homepage.
 export const sliderItems: Journal[] = [
   {
     name: "Issue20",
     imageurl: `${BASE_IMAGE_URL}issue20.jpg`,
     pdfurl: `${BASE_PDF_URL}issue20.pdf`,
-    pageCount: 44,
+    pageCount: 28,
     month: "January",
     year: 2026,
+    theme: "Winter",
+    ink: "#8D4A48",
+    wash: "#DFE4E6",
   },
   {
     name: "Issue19",
     imageurl: `${BASE_IMAGE_URL}issue19.jpg`,
     pdfurl: `${BASE_PDF_URL}issue19.pdf`,
-    pageCount: 44,
+    pageCount: 26,
     month: "October",
     year: 2025,
+    theme: "Unite",
+    ink: "#973A36",
+    wash: "#E9E2D6",
   },
   {
     name: "Issue18",
     imageurl: `${BASE_IMAGE_URL}issue18.jpg`,
     pdfurl: `${BASE_PDF_URL}issue18.pdf`,
-    pageCount: 44,
+    pageCount: 34,
     month: "September",
     year: 2025,
+    ink: "#8A5A22",
+    wash: "#EBDDBF",
   },
   {
     name: "Issue17",
     imageurl: `${BASE_IMAGE_URL}issue17.jpg`,
     pdfurl: `${BASE_PDF_URL}issue17.pdf`,
-    pageCount: 44,
+    pageCount: 38,
     month: "August",
     year: 2025,
+    theme: "Summer Edition",
+    ink: "#C9692B",
+    wash: "#FBE6C8",
+  },
+  {
+    name: "Issue16",
+    imageurl: `${BASE_IMAGE_URL}issue16.jpg`,
+    pdfurl: `${BASE_PDF_URL}issue16.pdf`,
+    pageCount: 56,
+    month: "March",
+    year: 2025,
+    theme: "Lam7a Archives",
+    ink: "#79485C",
+    wash: "#E8E3D8",
+  },
+  {
+    name: "Issue15",
+    imageurl: `${BASE_IMAGE_URL}issue15.jpg`,
+    pdfurl: `${BASE_PDF_URL}issue15.pdf`,
+    pageCount: 40,
+    month: "February",
+    year: 2025,
+    theme: "Beauty in the Ordinary",
+    ink: "#3D4A8F",
+    wash: "#F3F0B4",
   },
   {
     name: "Issue14",
     imageurl: `${BASE_IMAGE_URL}issue14.jpg`,
     pdfurl: `${BASE_PDF_URL}issue14.pdf`,
-    pageCount: 44,
+    pageCount: 46,
     month: "January",
     year: 2025,
+    theme: "Continuum",
+    ink: "#1F1F1F",
+    wash: "#EAEAE8",
   },
   {
     name: "Issue13",
@@ -52,6 +96,9 @@ export const sliderItems: Journal[] = [
     pageCount: 44,
     month: "October",
     year: 2024,
+    theme: "Resistance",
+    ink: "#7C2C2F",
+    wash: "#E6E8DF",
   },
   {
     name: "Issue12",
@@ -60,6 +107,9 @@ export const sliderItems: Journal[] = [
     pageCount: 44,
     month: "September",
     year: 2024,
+    theme: "Rooted",
+    ink: "#3E6C86",
+    wash: "#DCE8EE",
   },
   {
     name: "Issue11",
@@ -68,6 +118,9 @@ export const sliderItems: Journal[] = [
     pageCount: 52,
     month: "August",
     year: 2024,
+    theme: "Summer",
+    ink: "#C9344F",
+    wash: "#DDF0F0",
   },
   {
     name: "Issue10",
@@ -76,6 +129,9 @@ export const sliderItems: Journal[] = [
     pageCount: 58,
     month: "March",
     year: 2024,
+    theme: "Journal",
+    ink: "#A6647B",
+    wash: "#F7E4D2",
   },
   {
     name: "Issue9",
@@ -84,6 +140,9 @@ export const sliderItems: Journal[] = [
     pageCount: 48,
     month: "January",
     year: 2024,
+    theme: "Echo of Our Hearts",
+    ink: "#821A15",
+    wash: "#F0DEDB",
   },
   {
     name: "Issue8",
@@ -92,6 +151,9 @@ export const sliderItems: Journal[] = [
     pageCount: 40,
     month: "October",
     year: 2023,
+    theme: "Student Voices",
+    ink: "#405240",
+    wash: "#DCE6D8",
   },
   {
     name: "Issue7",
@@ -100,6 +162,9 @@ export const sliderItems: Journal[] = [
     pageCount: 30,
     month: "September",
     year: 2023,
+    theme: "Greetings from Carnegie Mellon University Qatar",
+    ink: "#3F7F96",
+    wash: "#DCE9EC",
   },
   {
     name: "Issue6",
@@ -108,6 +173,9 @@ export const sliderItems: Journal[] = [
     pageCount: 48,
     month: "March",
     year: 2023,
+    theme: "Reminisce",
+    ink: "#886598",
+    wash: "#F6E3DC",
   },
   {
     name: "Issue5",
@@ -116,6 +184,9 @@ export const sliderItems: Journal[] = [
     pageCount: 44,
     month: "February",
     year: 2023,
+    theme: "Mirror",
+    ink: "#6C5F4A",
+    wash: "#E6E2D6",
   },
   {
     name: "Issue4",
@@ -124,14 +195,20 @@ export const sliderItems: Journal[] = [
     pageCount: 48,
     month: "January",
     year: 2023,
+    theme: "Merged",
+    ink: "#C46C59",
+    wash: "#EFE3C9",
   },
   {
     name: "Issue3",
     imageurl: `${BASE_IMAGE_URL}issue3.jpg`,
     pdfurl: `${BASE_PDF_URL}issue3.pdf`,
-    pageCount: 28, 
+    pageCount: 28,
     month: "October",
     year: 2022,
+    theme: "Embrace",
+    ink: "#2F6F9F",
+    wash: "#E6EEF2",
   },
   {
     name: "Issue2",
@@ -140,6 +217,9 @@ export const sliderItems: Journal[] = [
     pageCount: 40,
     month: "September",
     year: 2022,
+    theme: "Plugged In",
+    ink: "#2537B6",
+    wash: "#DDE2F6",
   },
   {
     name: "Issue1",
@@ -148,5 +228,8 @@ export const sliderItems: Journal[] = [
     pageCount: 18,
     month: "August",
     year: 2022,
+    theme: "New Beginnings",
+    ink: "#D9486E",
+    wash: "#FDEEE7",
   },
 ];

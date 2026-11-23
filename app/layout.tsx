@@ -1,15 +1,41 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Caveat, Newsreader, Playfair_Display } from "next/font/google";
+import { asset } from "./lib/util";
 import "./globals.css";
 
-const montserrat = Montserrat({ subsets: ["latin"] });
+// Display: a high-contrast italic serif, the same family of letterforms as
+// the Lam7a masthead on every cover.
+const display = Playfair_Display({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+  display: "swap",
+});
+// Text: a serif made for reading.
+const text = Newsreader({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: "--font-text",
+  display: "swap",
+  adjustFontFallback: false,
+});
+// Handwriting, for the small pencilled notes.
+const hand = Caveat({
+  subsets: ["latin"],
+  variable: "--font-hand",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "Lam7a - CMU-Q Student Magazine",
+  title: {
+    default: "Lam7a, the CMU-Q student magazine",
+    template: "%s | Lam7a",
+  },
   description:
-    "Lam7a is the official student magazine of CMU-Qatar, showcasing student stories, news, and creative works.",
+    "Lam7a is the student magazine of Carnegie Mellon University in Qatar: a glimpse into student life, made by students, for students.",
+  themeColor: "#F1EADB",
   icons: {
-    icon: "/favicon.ico", // Path to the favicon in public folder
+    icon: asset("/favicon.ico"),
   },
   keywords:
     "CMUQ, CMU, cmu, cmuq, cmu qatar, cmuq qatar, Student Magazine, Lam7a, Qatar, University, News, Stories",
@@ -22,7 +48,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={montserrat.className}>
+      <body className={`${display.variable} ${text.variable} ${hand.variable}`}>
         {children}
       </body>
     </html>
